@@ -1,3 +1,19 @@
 #SPDX-License-Identifier: MIT-0
 ---
 # vars file for Application_Deployment
+users:
+  - sedreuser
+  - supportuser
+  - deployuser
+
+directories:
+  - /opt/sedre
+  - /opt/sedre/logs
+  - /opt/sedre/backup
+  - /opt/sedre/config
+
+app_name: sedre
+app_port: 8080
+app_version: v1.0
+
+

@@ -1,0 +1,9 @@
+---
+ - name: call the main role
+   hosts: all
+   become: yes
+   gather_facts: no
+   vars_files:
+     - vault_secreate.yml
+   roles:
+     - Application_Deployment

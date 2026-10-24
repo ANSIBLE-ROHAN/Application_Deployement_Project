@@ -1,3 +1,7 @@
 #SPDX-License-Identifier: MIT-0
 ---
 # handlers file for Application_Deployment
+ - name: restart_service
+   debug:
+     msg:
+       - "service restarted"

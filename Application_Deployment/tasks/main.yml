@@ -1,3 +1,83 @@
 #SPDX-License-Identifier: MIT-0
 ---
 # tasks file for Application_Deployment
+ - name: create users
+   user:
+     name: "{{ item }}"
+     state: present
+
+   loop: "{{ users }}"
+   tags:
+     user
+
+
+# task 2  create directries
+ - name: create directories structure
+   file:
+     path: "{{ item }}"
+     state: directory
+
+   loop: "{{ directories }}"
+   tags:
+     directory
+
+# task 3 deploy application config
+
+ - name: deploy application config
+   template:
+     src: application.properties.j2
+     dest: /opt/sedre/config/application.properties
+
+   notify:
+     - restart_service
+   tags:
+     config
+
+# task 4 health check
+
+ - name: check hostname
+   command: hostname
+   register: output_hostname
+   tags:
+     healthcheck
+
+ - name: print hostname
+   debug:
+     var: output_hostname.stdout
+   tags:
+     healthcheck
+     
+
+ - name: check uptime
+   command: uptime
+   register: output_uptime
+   tags:
+     healthcheck
+
+ - name: print uptime
+   debug:
+     var: output_uptime.stdout
+   tags:
+     healthcheck
+
+ - name: check date
+   command: date
+   register: output_date
+   tags:
+     healthcheck
+
+ - name: print date
+   debug:
+     var: output_date.stdout
+   tags:
+     healthcheck
+   
+
+# task 5 production deployment successfull mess
+ - name: production deployment status
+   debug:
+     msg:
+       - "production deployment successfull"
+   when: env == "prod"
+   tags:
+     statuscheck
