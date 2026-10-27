@@ -1,6 +1,6 @@
 ---
  - name: call the main role
-   hosts: all
+   hosts: "{{ target_env }}"
    become: yes
    gather_facts: no
    vars_files:
